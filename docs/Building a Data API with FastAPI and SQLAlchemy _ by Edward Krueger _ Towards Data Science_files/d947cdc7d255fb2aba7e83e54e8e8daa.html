@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/d947cdc7d255fb2aba7e83e54e8e8daa -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Medium</title><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style></head><body><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./a9253dc9ee75a719d1ea426efecb34a7.js.download" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-002bf9cc4a4c.css"><div id="gist103009608" class="gist">
+    <div class="gist-file" translate="no">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-main-py" class="file my-2">
+    
+    <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python  ">
+
+        
+<div class="js-check-bidi js-blob-code-container blob-code-content">
+
+  <template class="js-file-alert-template"></template>
+<template class="js-line-alert-template"></template>
+
+  <table class="highlight tab-size js-file-line-container js-code-nav-container js-tagsearch-file" data-tab-size="8" data-paste-markdown-skip="" data-tagsearch-lang="Python" data-tagsearch-path="main.py">
+        <tbody><tr>
+          <td id="file-main-py-L1" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="1"></td>
+          <td id="file-main-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-en">@<span class="pl-s1">app</span>.<span class="pl-en">get</span>(<span class="pl-s">"/records/"</span>, <span class="pl-s1">response_model</span><span class="pl-c1">=</span><span class="pl-v">List</span>[<span class="pl-s1">schemas</span>.<span class="pl-v">Record</span>])</span></td>
+        </tr>
+        <tr>
+          <td id="file-main-py-L2" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="2"></td>
+          <td id="file-main-py-LC2" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">show_records</span>(<span class="pl-s1">db</span>: <span class="pl-v">Session</span> <span class="pl-c1">=</span> <span class="pl-v">Depends</span>(<span class="pl-s1">get_db</span>)):</td>
+        </tr>
+        <tr>
+          <td id="file-main-py-L3" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="3"></td>
+          <td id="file-main-py-LC3" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">records</span> <span class="pl-c1">=</span> <span class="pl-s1">db</span>.<span class="pl-en">query</span>(<span class="pl-s1">models</span>.<span class="pl-v">Record</span>).<span class="pl-en">all</span>()</td>
+        </tr>
+        <tr>
+          <td id="file-main-py-L4" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="4"></td>
+          <td id="file-main-py-LC4" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">return</span> <span class="pl-s1">records</span></td>
+        </tr>
+  </tbody></table>
+</div>
+
+
+    </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/DougAF/a9253dc9ee75a719d1ea426efecb34a7/raw/378e77f192c17e41dd6d3f024cead54d741e3932/main.py" style="float:right">view raw</a>
+        <a href="https://gist.github.com/DougAF/a9253dc9ee75a719d1ea426efecb34a7#file-main-py">
+          main.py
+        </a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200; if (document) {document.domain = document.domain;}function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height);var elements = document.getElementsByClassName("gist-data"); for (var i = 0; i < elements.length; i++) {elements[i].style.overflow = "visible"}resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {try {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);} catch(error) {console.log('maybeResize error: ', error)}}maybeResize();</script><script defer="" src="./v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon="{&quot;rayId&quot;:&quot;704279f258f608f5&quot;,&quot;token&quot;:&quot;0b5f665943484354a59c39c6833f7078&quot;,&quot;version&quot;:&quot;2021.12.0&quot;,&quot;si&quot;:100}" crossorigin="anonymous"></script>
+</body></html>

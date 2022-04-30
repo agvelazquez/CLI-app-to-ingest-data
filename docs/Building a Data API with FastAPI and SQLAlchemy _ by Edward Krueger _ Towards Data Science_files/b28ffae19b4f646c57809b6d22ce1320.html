@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/b28ffae19b4f646c57809b6d22ce1320 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Medium</title><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style></head><body><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./96899421a8c47e885365fdf058d4d8d7.js.download" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-002bf9cc4a4c.css"><div id="gist102909786" class="gist">
+    <div class="gist-file" translate="no">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-load-py" class="file my-2">
+    
+    <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python  ">
+
+        
+<div class="js-check-bidi js-blob-code-container blob-code-content">
+
+  <template class="js-file-alert-template"></template>
+<template class="js-line-alert-template"></template>
+
+  <table class="highlight tab-size js-file-line-container js-code-nav-container js-tagsearch-file" data-tab-size="8" data-paste-markdown-skip="" data-tagsearch-lang="Python" data-tagsearch-path="load.py">
+        <tbody><tr>
+          <td id="file-load-py-L1" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="1"></td>
+          <td id="file-load-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-s1">csv</span></td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L2" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="2"></td>
+          <td id="file-load-py-LC2" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> <span class="pl-s1">datetime</span></td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L3" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="3"></td>
+          <td id="file-load-py-LC3" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L4" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="4"></td>
+          <td id="file-load-py-LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-k">from</span> <span class="pl-s1">app</span> <span class="pl-k">import</span> <span class="pl-s1">models</span></td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L5" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="5"></td>
+          <td id="file-load-py-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-k">from</span> <span class="pl-s1">app</span>.<span class="pl-s1">database</span> <span class="pl-k">import</span> <span class="pl-v">SessionLocal</span>, <span class="pl-s1">engine</span></td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L6" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="6"></td>
+          <td id="file-load-py-LC6" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L7" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="7"></td>
+          <td id="file-load-py-LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">db</span> <span class="pl-c1">=</span> <span class="pl-v">SessionLocal</span>()</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L8" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="8"></td>
+          <td id="file-load-py-LC8" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L9" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="9"></td>
+          <td id="file-load-py-LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">models</span>.<span class="pl-v">Base</span>.<span class="pl-s1">metadata</span>.<span class="pl-en">create_all</span>(<span class="pl-s1">bind</span><span class="pl-c1">=</span><span class="pl-s1">engine</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L10" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="10"></td>
+          <td id="file-load-py-LC10" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L11" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="11"></td>
+          <td id="file-load-py-LC11" class="blob-code blob-code-inner js-file-line"><span class="pl-k">with</span> <span class="pl-en">open</span>(<span class="pl-s">"sars_2003_complete_dataset_clean.csv"</span>, <span class="pl-s">"r"</span>) <span class="pl-k">as</span> <span class="pl-s1">f</span>:</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L12" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="12"></td>
+          <td id="file-load-py-LC12" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">csv_reader</span> <span class="pl-c1">=</span> <span class="pl-s1">csv</span>.<span class="pl-v">DictReader</span>(<span class="pl-s1">f</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L13" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="13"></td>
+          <td id="file-load-py-LC13" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L14" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="14"></td>
+          <td id="file-load-py-LC14" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">for</span> <span class="pl-s1">row</span> <span class="pl-c1">in</span> <span class="pl-s1">csv_reader</span>:</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L15" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="15"></td>
+          <td id="file-load-py-LC15" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">db_record</span> <span class="pl-c1">=</span> <span class="pl-s1">models</span>.<span class="pl-v">Record</span>(</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L16" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="16"></td>
+          <td id="file-load-py-LC16" class="blob-code blob-code-inner js-file-line">            <span class="pl-s1">date</span><span class="pl-c1">=</span><span class="pl-s1">datetime</span>.<span class="pl-s1">datetime</span>.<span class="pl-en">strptime</span>(<span class="pl-s1">row</span>[<span class="pl-s">"date"</span>], <span class="pl-s">"%Y-%m-%d"</span>),</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L17" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="17"></td>
+          <td id="file-load-py-LC17" class="blob-code blob-code-inner js-file-line">            <span class="pl-s1">country</span><span class="pl-c1">=</span><span class="pl-s1">row</span>[<span class="pl-s">"country"</span>],</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L18" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="18"></td>
+          <td id="file-load-py-LC18" class="blob-code blob-code-inner js-file-line">            <span class="pl-s1">cases</span><span class="pl-c1">=</span><span class="pl-s1">row</span>[<span class="pl-s">"cases"</span>],</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L19" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="19"></td>
+          <td id="file-load-py-LC19" class="blob-code blob-code-inner js-file-line">            <span class="pl-s1">deaths</span><span class="pl-c1">=</span><span class="pl-s1">row</span>[<span class="pl-s">"deaths"</span>],</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L20" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="20"></td>
+          <td id="file-load-py-LC20" class="blob-code blob-code-inner js-file-line">            <span class="pl-s1">recoveries</span><span class="pl-c1">=</span><span class="pl-s1">row</span>[<span class="pl-s">"recoveries"</span>],</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L21" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="21"></td>
+          <td id="file-load-py-LC21" class="blob-code blob-code-inner js-file-line">        )</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L22" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="22"></td>
+          <td id="file-load-py-LC22" class="blob-code blob-code-inner js-file-line">        <span class="pl-s1">db</span>.<span class="pl-en">add</span>(<span class="pl-s1">db_record</span>)</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L23" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="23"></td>
+          <td id="file-load-py-LC23" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L24" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="24"></td>
+          <td id="file-load-py-LC24" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">db</span>.<span class="pl-en">commit</span>()</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L25" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="25"></td>
+          <td id="file-load-py-LC25" class="blob-code blob-code-inner js-file-line">
+</td>
+        </tr>
+        <tr>
+          <td id="file-load-py-L26" class="blob-num js-line-number js-code-nav-line-number js-blob-rnum" data-line-number="26"></td>
+          <td id="file-load-py-LC26" class="blob-code blob-code-inner js-file-line"><span class="pl-s1">db</span>.<span class="pl-en">close</span>()</td>
+        </tr>
+  </tbody></table>
+</div>
+
+
+    </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/DougAF/96899421a8c47e885365fdf058d4d8d7/raw/ee1b30149df8f9724ec1406bc0f8b7b0be54f285/load.py" style="float:right">view raw</a>
+        <a href="https://gist.github.com/DougAF/96899421a8c47e885365fdf058d4d8d7#file-load-py">
+          load.py
+        </a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200; if (document) {document.domain = document.domain;}function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height);var elements = document.getElementsByClassName("gist-data"); for (var i = 0; i < elements.length; i++) {elements[i].style.overflow = "visible"}resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {try {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);} catch(error) {console.log('maybeResize error: ', error)}}maybeResize();</script><script defer="" src="./v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon="{&quot;rayId&quot;:&quot;704279f58e1c08f5&quot;,&quot;token&quot;:&quot;0b5f665943484354a59c39c6833f7078&quot;,&quot;version&quot;:&quot;2021.12.0&quot;,&quot;si&quot;:100}" crossorigin="anonymous"></script>
+</body></html>
