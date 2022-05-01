@@ -1,7 +1,6 @@
 import pandas as pd
 from tqdm import tqdm
-from dbengine import engine_setup
-
+from app.utils.dbengine import engine_setup, config_setup
 
 def chunker(seq, size):
     # from http://stackoverflow.com/a/434328
@@ -22,16 +21,18 @@ def insert_with_progress(df, engine):
 
 
 def load():
+    config_file = config_setup()
     try:
-        df = pd.read_csv(r'../data/trips.csv', encoding='utf-8')
+        pathfile = config_file['input_folder']+'/'+config_file['filename']
+        df = pd.read_csv(pathfile, encoding='utf-8')
         engine = engine_setup()
         insert_with_progress(df, engine)
         print('Data uploaded successfully')
 
         try:
-            engine.execute(
+            vw_query = \
                 """
-                truncate table agg.vw_trips; 
+                truncate table agg.{0}; 
 
                 with source as  (
                       select 
@@ -41,7 +42,7 @@ def load():
                           datepart(week, datetime)	as week_datetime,
                           max(datasource)			as datasource,
                           1							as nbr_trips
-                          FROM [jobsity].[dbo].[trips]
+                          FROM [{2}].[stg].[{1}]
                           group by 
                                 region, 
                                 origin_coord,
@@ -49,7 +50,7 @@ def load():
                                 datetime
                 )
 
-                insert into agg.vw_trips
+                insert into agg.{0}
                 (
                     region,
                     datetime,
@@ -59,9 +60,8 @@ def load():
                     nbr_trips
                 )
                 select * from source;
-                """
-
-            )
+                """.format(config_file['aggregated_table'], config_file['staging_table'], config_file['dbname'])
+            engine.execute(vw_query)
             print('Aggregated table created successfully')
         except:
             print('Error at aggregating table')

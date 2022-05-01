@@ -1,12 +1,14 @@
-from dbengine import engine_setup,config_setup
+from app.utils.dbengine import engine_setup, config_setup
 
 engine = engine_setup()
 config_file = config_setup()
 
 def create_database(engine):
     try:
-        engine.execute(" IF NOT EXISTS(SELECT * FROM sys.databases WHERE name = 'jobsity') \
-              EXEC('CREATE DATABASE jobsity');")
+        db_query = " IF NOT EXISTS(SELECT * FROM sys.databases WHERE name = '{}') \
+              EXEC('CREATE DATABASE {}');".format(config_file['dbname'], config_file['dbname'])
+        print("Database engine created successfully")
+        engine.execute(db_query)
         print("Database executed")
     except:
         print("Error at creating DB")
@@ -22,16 +24,17 @@ def create_schema(engine):
 
 def create_tables(engine):
     try:
-        engine.execute(" IF NOT EXISTS ( SELECT  * FROM sys.tables WHERE name = N'trips' ) \
-             CREATE TABLE stg.trips (  \
+        trips_query = " IF NOT EXISTS ( SELECT  * FROM sys.tables WHERE name = N'{}' ) \
+             CREATE TABLE stg.{} (  \
                 region VARCHAR(255), \
                 origin_coord VARCHAR(255), \
                 destination_coord VARCHAR(255), \
                 datetime VARCHAR(255), \
                 datasource VARCHAR(255) \
-                    );")
-        engine.execute(" IF NOT EXISTS ( SELECT  * FROM sys.tables WHERE name = N'vw_trips' ) \
-             CREATE TABLE agg.vw_trips ( \
+                    );".format(config_file['staging_table'], config_file['staging_table'])
+        engine.execute(trips_query)
+        vw_trips_query = " IF NOT EXISTS ( SELECT  * FROM sys.tables WHERE name = N'{}' ) \
+             CREATE TABLE agg.{} ( \
                 trip_id int IDENTITY(1,1) PRIMARY KEY, \
                 region VARCHAR(255) NOT NULL, \
                 datetime datetime NOT NULL, \
@@ -39,16 +42,18 @@ def create_tables(engine):
                 week_datetime int NOT NULL, \
                 datasource VARCHAR(255) NOT NULL, \
                 nbr_trips int NOT NULL \
-                       );")
-        engine.execute(" IF NOT EXISTS ( SELECT  * FROM sys.tables WHERE name = N'trips_logging' ) \
-                CREATE TABLE log.trips_logging ( \
+                       );".format(config_file['aggregated_table'], config_file['aggregated_table'])
+        engine.execute(vw_trips_query)
+        log_query = " IF NOT EXISTS ( SELECT  * FROM sys.tables WHERE name = N'{}' ) \
+                CREATE TABLE log.{} ( \
                     id int IDENTITY(1,1) PRIMARY KEY, \
                     table_schema VARCHAR(3) NOT NULL, \
                     table_name VARCHAR(50) NOT NULL, \
                     datetime datetime NOT NULL, \
                     records bigint NOT NULL \
-                       );")
-        print("Schemas executed")
+                       );".format(config_file['logging_table'], config_file['logging_table'])
+        engine.execute(log_query)
+        print("Table creation executed")
     except:
         print("Error at creating tables")
 

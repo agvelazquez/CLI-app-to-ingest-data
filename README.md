@@ -10,8 +10,9 @@ Output:
 
 Requirements:
 - A SQL sever Management Studio database (could be local).
-- Python 3 installed in your machine
-- Check requirements.txt for Python packages
+- Database connection use Windows Authentication.
+- Python 3 installed in your machine.
+- Check requirements.txt for Python packages.
         
 In order to run the app you will need to follow next steps:
 1. Complete the config.json file with your setup 

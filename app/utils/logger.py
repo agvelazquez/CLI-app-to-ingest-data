@@ -1,23 +1,31 @@
-from dbengine import engine_setup
-
+from app.utils.dbengine import engine_setup, config_setup
 
 def table_status():
+    config_file = config_setup()
     engine = engine_setup()
     try:
-        stg_records = engine.execute("SELECT TOP 1 records, datetime FROM [jobsity].[log].[trips_logging] \
-                                      WHERE table_name = 'trips' ORDER BY  datetime DESC;")
+        log_query = "SELECT TOP 1 records, datetime FROM [{1}].[log].[{0}] \
+                                      WHERE table_name = '{2}' ORDER BY  datetime DESC;".format(config_file['logging_table']
+                                                                                                , config_file['dbname']
+                                                                                                , config_file['staging_table'])
+
+        stg_records = engine.execute(log_query)
 
         for row in stg_records:
-            print('Table: trips',
+            print('Table: {0}'.format(config_file['staging_table']),
                   'Number of records:', row[0],
                   'Last upload date:', row[1])
         stg_records.close()
 
-        agg_records = engine.execute("SELECT TOP 1 records, datetime FROM [jobsity].[log].[trips_logging] \
-                                      WHERE table_name = 'vw_trips' ORDER BY  datetime DESC;")
+        log_agg_query = "SELECT TOP 1 records, datetime FROM [{1}].[log].[{0}] \
+                                      WHERE table_name = '{2}' ORDER BY  datetime DESC;".format(config_file['logging_table']
+                                                                                                     , config_file['dbname']
+                                                                                                     , config_file['aggregated_table'])
+
+        agg_records = engine.execute(log_agg_query)
 
         for row in agg_records:
-            print('Table: vw_trips',
+            print('Table: {0}'.format(config_file['aggregated_table']),
                   'Number of records:', row[0],
                   'Last upload date:', row[1])
         agg_records.close()

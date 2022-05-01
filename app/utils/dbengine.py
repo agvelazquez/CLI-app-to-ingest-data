@@ -11,7 +11,7 @@ def config_setup():
     try:
         with open(configurationFileName, encoding='utf-8') as config_file:
             config = json.load(config_file)
-            print("Configuration file:'" + os.path.realpath(config_file.name) + "' loaded successfully.")
+            # print("Configuration file:'" + os.path.realpath(config_file.name) + "' loaded successfully.")
     except:
         print('Error processing configuration file: ' + configurationFileName + '. Exiting.')
         exit(-1)
@@ -20,6 +20,7 @@ def config_setup():
 
 def engine_setup():
     config = config_setup()
+
     engine = create_engine(
         'mssql+pyodbc://@' + config['servername'] + '/' + config['dbname'] +
         '?trusted_connection=yes&driver=' + config['driver'])
