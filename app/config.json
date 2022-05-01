@@ -1,0 +1,9 @@
+{
+    "input_folder": ".\\data",
+    "servername": "(LocalDb)\\LocalDB",
+    "dbname": "jobsity",
+    "driver": "ODBC+Driver+18+for+SQL+Server",
+    "staging_table": "trips",
+    "aggregated_table": "vw_trips",
+    "logging_table": "trips_logging"
+}

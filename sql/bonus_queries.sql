@@ -1,38 +1,12 @@
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
---1-- Alternative to calculation made in the Tableau dahsboard to the Weekly average by region
---2-- From the two most commonly appearing regions, which is the latest datasource?
---3-- What regions has the "cheap_mobile" datasource appeared in?
+--1-- From the two most commonly appearing regions, which is the latest datasource?
+--2-- What regions has the "cheap_mobile" datasource appeared in?
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 
-		--1--
-with avg_calc as (
-	-- total trips by week
-	SELECT 
-		  region
-		, year_datetime
-		, week_datetime
-		, sum(nbr_trips) total_trips
-	  FROM [jobsity].[agg].[vw_trips]
-	  group by 
-		  region
-		  , year_datetime
-		  , week_datetime
-	)
-
-SELECT 
-	--weekly average by region
-	 region
-	,avg(total_trips) avg_trips
-	from avg_calc
-	group by 	  
-		region;
-
-
-
-			--2--
+--1--
 with top_region as (
 	SELECT 
 		  region
@@ -57,8 +31,7 @@ Select region, datasource
 from latest_datasource
 where rn = 1
 
-
-			--3--
+--2--
 SELECT DISTINCT  region
 FROM [jobsity].[agg].[vw_trips]
 WHERE datasource = 'cheap_mobile'
