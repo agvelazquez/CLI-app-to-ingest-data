@@ -1,6 +1,12 @@
 from app.utils.dbengine import engine_setup, config_setup
 
 def table_status():
+    """
+
+    Log the number of records inserted in staging and aggregated table
+
+    """
+
     config_file = config_setup()
     engine = engine_setup()
     try:

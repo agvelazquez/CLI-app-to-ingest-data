@@ -1,11 +1,12 @@
-import sys
 import json
-import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 def config_setup():
+    """
+    Read config.json and create dictionary with the json data
+    """
     configurationFileName = '.\\config.json'
 
     try:
@@ -19,8 +20,10 @@ def config_setup():
     return config
 
 def engine_setup():
+    """
+    Create connection with database
+    """
     config = config_setup()
-
     engine = create_engine(
         'mssql+pyodbc://@' + config['servername'] + '/' + config['dbname'] +
         '?trusted_connection=yes&driver=' + config['driver'])

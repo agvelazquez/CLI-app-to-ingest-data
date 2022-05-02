@@ -2,31 +2,39 @@ import pandas as pd
 from tqdm import tqdm
 from app.utils.dbengine import engine_setup, config_setup
 
-def chunker(seq, size):
-    # from http://stackoverflow.com/a/434328
-    return (seq[pos:pos + size] for pos in range(0, len(seq), size))
 
+def insert_with_progress(pathfile, engine, table_destination):
+    """
+    Upload csv file to landing table with a progression bar
+    :param df: csv file
+    :param engine: SQL alchemy engine
+    :param table_destination: landing table in DB
+    """
+    chunksize = 100
+    df = pd.read_csv(pathfile, encoding='utf-8', chunksize=chunksize)
 
-def insert_with_progress(df, engine):
-    chunksize = int(len(df) / 10)  # 10%
-    with tqdm(total=len(df)) as pbar:
-        for i, cdf in enumerate(chunker(df, chunksize)):
+    with tqdm(total=1000000) as pbar:
+        for i, cdf in enumerate(df):
             replace = "replace" if i == 0 else "append"
             cdf.to_sql(con=engine,
                        schema='stg',
-                       name="trips",
+                       name=table_destination,
                        if_exists=replace,
                        index=False)
-            pbar.update(chunksize)
+            pbar.update(i)
 
 
 def load():
+    """
+    Load csv file to staging table.
+    Load aggregated table grouping trips with similar origin,destination and time
+    """
     config_file = config_setup()
     try:
         pathfile = config_file['input_folder']+'/'+config_file['filename']
-        df = pd.read_csv(pathfile, encoding='utf-8')
+        table_destination = config_file['staging_table']
         engine = engine_setup()
-        insert_with_progress(df, engine)
+        insert_with_progress(pathfile, engine, table_destination)
         print('Data uploaded successfully')
 
         try:

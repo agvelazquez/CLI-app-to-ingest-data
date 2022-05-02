@@ -4,6 +4,10 @@ engine = engine_setup()
 config_file = config_setup()
 
 def create_database(engine):
+    """
+    :param engine: SQLalchemy engine
+    :return: Create SQL database if not exists
+    """
     try:
         db_query = " IF NOT EXISTS(SELECT * FROM sys.databases WHERE name = '{}') \
               EXEC('CREATE DATABASE {}');".format(config_file['dbname'], config_file['dbname'])
@@ -14,6 +18,10 @@ def create_database(engine):
         print("Error at creating DB")
 
 def create_schema(engine):
+    """
+    :param engine: SQLalchemy engine
+    :return: Create required schemas
+    """
     try:
        engine.execute("IF NOT EXISTS ( SELECT  * FROM sys.schemas WHERE   name = N'stg') EXEC('CREATE SCHEMA [stg]');")
        engine.execute("IF NOT EXISTS ( SELECT  *  FROM sys.schemas  WHERE   name = N'agg') EXEC('CREATE SCHEMA [agg]');")
@@ -23,6 +31,10 @@ def create_schema(engine):
         print("Error at creating schemas")
 
 def create_tables(engine):
+    """
+    :param engine: SQLalchemy engine
+    :return: Create staging table, aggregated table and log table schemas
+    """
     try:
         trips_query = " IF NOT EXISTS ( SELECT  * FROM sys.tables WHERE name = N'{}' ) \
              CREATE TABLE stg.{} (  \

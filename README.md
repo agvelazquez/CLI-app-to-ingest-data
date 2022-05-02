@@ -27,13 +27,9 @@ Use the command --help for more information.
 
 ### Areas of improvement 
 - Use an open source SQL database such as SQLite 
-- Improve code notation 
-- Improve error message 
-- Put scripts in utils folder 
+- Improve code notation
 - Add decimals to weekly average
 - Add title, labels, references and data table to the chart
-- Improve data loading phase
 - Read file in chunks instead using a df with all the data
-- Test the scalability of the app 
-- Parametrize the solution 
+- Test the scalability of the app
 - Clean repo
