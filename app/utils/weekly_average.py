@@ -13,7 +13,7 @@ def calculate_weekly_average():
                   region
                 , year_datetime
                 , week_datetime
-                , sum(nbr_trips) total_trips
+                , sum(cast(nbr_trips as decimal(12,5))) as total_trips
               FROM [{0}].[agg].[{1}]
               group by 
                     region
@@ -40,7 +40,8 @@ def calculate_weekly_average():
 
 def create_visualization(df):
     try:
-        fig = px.bar(df, x='Region', y="Weekly Average Trips")
+        fig = px.bar(df, x='Region', y="Weekly Average Trips", text_auto='.2s', title="Weekly Average Trips by Region")
+        fig.update_traces(textfont_size=16, textangle=0, textposition="outside", cliponaxis=False)
         fig.update_layout(width=1000, height=750)
         fig.show()
     except:
