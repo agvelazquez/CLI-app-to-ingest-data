@@ -1,7 +1,5 @@
 import json
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 
 def config_setup():
     """
@@ -27,9 +25,5 @@ def engine_setup():
     engine = create_engine(
         'mssql+pyodbc://@' + config['servername'] + '/' + config['dbname'] +
         '?trusted_connection=yes&driver=' + config['driver'])
-
-    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-    Base = declarative_base()
 
     return engine
