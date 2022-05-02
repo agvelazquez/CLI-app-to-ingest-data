@@ -28,6 +28,8 @@ To check the status of the file loaded in the DB use file_status command.
 
 Use the command --help for more information.
 
+For more details on jobsite-app commands please go to [RunningtheApp.md](https://github.com/agvelazquez/jobsity-challenge/blob/main/RunningtheApp.md)
+
 ### Output Example
 
 The app will output a barchart showing the weekly average by Region
@@ -39,3 +41,5 @@ The app will output a barchart showing the weekly average by Region
 - Use an open source SQL database such as SQLite where we can share the DB as a file
 - Use partitions and indexes in SQL tables
 - Include a table with values in the output plot
+- Improve notations and exceptions 
+- Add a command to "run everything"
