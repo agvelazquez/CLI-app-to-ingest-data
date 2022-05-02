@@ -29,7 +29,6 @@ To check the status of the file loaded in the DB use file_status command.
 Use the command --help for more information.
 
 ### Areas of improvement 
-- Use an open source SQL database such as SQLite
-- Improve code notation
+- Use an open source SQL database such as SQLite where we can share the DB as a file
 - Use partitions and indexes in SQL tables
 - Include a table with values in the output plot

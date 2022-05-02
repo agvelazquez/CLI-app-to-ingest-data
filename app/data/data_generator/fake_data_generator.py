@@ -7,7 +7,7 @@ RECORD_COUNT = 100000000
 fake = Faker()
 
 def create_csv_file():
-    with open('./app/data/fake_100M.csv', 'w', newline='') as csvfile:
+    with open('../fake_100M.csv', 'w', newline='') as csvfile:
         fieldnames = ['region', 'origin_coord', 'destination_coord', 'datetime', 'datasource']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
