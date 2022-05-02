@@ -28,6 +28,13 @@ To check the status of the file loaded in the DB use file_status command.
 
 Use the command --help for more information.
 
+### Output Example
+
+The app will output a barchart showing the weekly average by Region
+
+![plot](docs/output_chart.PNG)
+
+
 ### Areas of improvement 
 - Use an open source SQL database such as SQLite where we can share the DB as a file
 - Use partitions and indexes in SQL tables

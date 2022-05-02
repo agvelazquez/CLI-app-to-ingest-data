@@ -1,6 +1,6 @@
 {
     "input_folder": "./data",
-    "filename": "fake_big.csv",
+    "filename": "fake_100M.csv",
     "servername": "(LocalDb)\\LocalDB",
     "dbname": "jobsity",
     "driver": "ODBC+Driver+18+for+SQL+Server",

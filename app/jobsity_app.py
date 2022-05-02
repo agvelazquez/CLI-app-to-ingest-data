@@ -1,6 +1,6 @@
 import click
 
-@click.group(invoke_without_command=True) # Allow users to call our app without a command
+@click.group(invoke_without_command=True)
 @click.pass_context
 def main(ctx):
     """
