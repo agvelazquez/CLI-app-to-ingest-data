@@ -41,8 +41,9 @@ def create_database(ctx):
 
     engine = dbe.engine_setup()
     db.create_database(engine)
-    db.create_schema(engine)
-    db.create_tables(engine)
+    db_engine = db.change_database()
+    db.create_schema(db_engine)
+    db.create_tables(db_engine)
 
 @main.command('load_file')
 @click.pass_context

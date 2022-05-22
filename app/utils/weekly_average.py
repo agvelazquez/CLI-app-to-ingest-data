@@ -1,10 +1,11 @@
 import pandas as pd
 import plotly.express as px
-from app.utils.dbengine import engine_setup, config_setup
+from app.utils.dbengine import config_setup
+from app.utils.database import change_database
 
 def calculate_weekly_average():
     config_file = config_setup()
-    engine = engine_setup()
+    engine = change_database()
     try:
         avg_calc = \
             """
@@ -14,7 +15,7 @@ def calculate_weekly_average():
                 , year_datetime
                 , week_datetime
                 , sum(cast(nbr_trips as decimal(12,5))) as total_trips
-              FROM [{0}].[agg].[{1}]
+              FROM agg.{0}
               group by 
                     region
                   , year_datetime
@@ -22,12 +23,12 @@ def calculate_weekly_average():
                             )
         
             SELECT 
-                    region           as Region
+                    region           as "Region"
                 ,   avg(total_trips) as "Weekly Average Trips"
                 from avg_calc
                 group by 	  
                     region;
-            """.format(config_file['dbname'], config_file['aggregated_table'])
+            """.format(config_file['aggregated_table'])
 
         sql_query = pd.read_sql_query(avg_calc, engine)
 

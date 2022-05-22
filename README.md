@@ -43,3 +43,6 @@ The app will output a barchart showing the weekly average by Region
 - Include a table with values in the output plot
 - Improve notations and exceptions 
 - Add a command to "run everything"
+
+### Late Additions
+- Replacing SQL server DB by PostgreSQL or MySQL because can work with Windows, Linux and Mac. Postgres seems to be the "python" of the DBs.

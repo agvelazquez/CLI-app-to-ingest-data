@@ -1,5 +1,6 @@
 import json
 from sqlalchemy import create_engine
+import psycopg2
 
 def config_setup():
     """
@@ -23,7 +24,7 @@ def engine_setup():
     """
     config = config_setup()
     engine = create_engine(
-        'mssql+pyodbc://@' + config['servername'] + '/' + config['dbname'] +
-        '?trusted_connection=yes&driver=' + config['driver'])
+        'postgresql+psycopg2://' + config['username'] + ':' + config['password'] +
+        '@' + config['servername'] + ":" + str(config["port"]) + '/postgres')
 
     return engine

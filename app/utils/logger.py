@@ -1,4 +1,6 @@
-from app.utils.dbengine import engine_setup, config_setup
+from app.utils.dbengine import config_setup
+from app.utils.database import change_database
+from sqlalchemy import text
 
 def table_status():
     """
@@ -8,14 +10,14 @@ def table_status():
     """
 
     config_file = config_setup()
-    engine = engine_setup()
+    engine = change_database()
     try:
-        log_query = "SELECT TOP 1 records, datetime FROM [{1}].[log].[{0}] \
-                                      WHERE table_name = '{2}' ORDER BY  datetime DESC;".format(config_file['logging_table']
-                                                                                                , config_file['dbname']
-                                                                                                , config_file['staging_table'])
+        log_query = "SELECT records, datetime FROM log.{0}\
+                                      WHERE table_name = '{1}' ORDER BY  datetime DESC LIMIT 1;".format(
+            config_file['logging_table']
+            , config_file['staging_table'])
 
-        stg_records = engine.execute(log_query)
+        stg_records = engine.execute(text(log_query).execution_options(autocommit=True))
 
         for row in stg_records:
             print('Table: {0}'.format(config_file['staging_table']),
@@ -23,12 +25,12 @@ def table_status():
                   'Last upload date:', row[1])
         stg_records.close()
 
-        log_agg_query = "SELECT TOP 1 records, datetime FROM [{1}].[log].[{0}] \
-                                      WHERE table_name = '{2}' ORDER BY  datetime DESC;".format(config_file['logging_table']
-                                                                                                     , config_file['dbname']
-                                                                                                     , config_file['aggregated_table'])
+        log_agg_query = "SELECT records, datetime FROM log.{0} \
+                                      WHERE table_name = '{1}' ORDER BY  datetime DESC LIMIT 1;".format(
+            config_file['logging_table']
+            , config_file['aggregated_table'])
 
-        agg_records = engine.execute(log_agg_query)
+        agg_records = engine.execute(text(log_agg_query).execution_options(autocommit=True))
 
         for row in agg_records:
             print('Table: {0}'.format(config_file['aggregated_table']),

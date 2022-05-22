@@ -4,3 +4,5 @@ tqdm==4.64.0
 SQLAlchemy==1.4.36
 plotly==5.7.0
 Faker==13.6.0
+pandera~=0.11.0
+psycopg2~=2.9.3

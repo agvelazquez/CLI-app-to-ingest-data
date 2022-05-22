@@ -1,5 +1,5 @@
 from app.utils.dbengine import engine_setup, config_setup
-from sqlalchemy import text
+from sqlalchemy import text, create_engine
 
 engine = engine_setup()
 config_file = config_setup()
@@ -9,62 +9,86 @@ def create_database(engine):
     :param engine: SQLalchemy engine
     :return: Create SQL database if not exists
     """
+    print("Database engine created successfully")
     try:
-        db_query = " IF NOT EXISTS(SELECT * FROM sys.databases WHERE name = '{}') \
-              EXEC('CREATE DATABASE {}');".format(config_file['dbname'], config_file['dbname'])
-        print("Database engine created successfully")
-        engine.execute(text(db_query).execution_options(autocommit=True))
-        print("Database executed")
+        db_query = "CREATE DATABASE {0};".format(config_file['dbname'])
+
+        query = "SELECT datname FROM pg_catalog.pg_database WHERE datname = 'jobsity'"
+        databases_list = engine.execute(text(query).execution_options(autocommit=True))
+        dbnames = [row[0] for row in databases_list]
+        if 'jobsity' not in dbnames:
+            conn = engine.connect()
+            conn.execute("commit")
+            conn.execute(db_query)
+            conn.close()
+            print("Database created")
+        else:
+            print("Database already created")
     except:
         print("Error at creating DB")
 
+def change_database():
+    """
+    Create connection with database
+    """
+    config = config_setup()
+    engine = create_engine(
+        'postgresql+psycopg2://' + config['username'] + ':' + config['password'] +
+        '@' + config['servername'] + ":" + str(config["port"]) + '/' + config['dbname'])
+
+    return engine
+
 def create_schema(engine):
     """
-    :param engine: SQLalchemy engine
+    :param engine: SQAlchemy engine
     :return: Create required schemas
     """
     try:
-       engine.execute(text("USE {0}; IF NOT EXISTS ( SELECT  * FROM sys.schemas WHERE   name = N'stg') EXEC('CREATE SCHEMA [stg]');".format(config_file['dbname'])).execution_options(autocommit=True))
-       engine.execute(text("USE {0}; IF NOT EXISTS ( SELECT  *  FROM sys.schemas  WHERE   name = N'agg') EXEC('CREATE SCHEMA [agg]');".format(config_file['dbname'])).execution_options(autocommit=True))
-       engine.execute(text("USE {0}; IF NOT EXISTS ( SELECT  * FROM sys.schemas  WHERE   name = N'log') EXEC('CREATE SCHEMA [log]');".format(config_file['dbname'])).execution_options(autocommit=True))
+       engine.execute(text("CREATE SCHEMA IF NOT EXISTS stg AUTHORIZATION {0};".format(config_file['username'])).execution_options(autocommit=True))
+       engine.execute(text("CREATE SCHEMA IF NOT EXISTS agg AUTHORIZATION {0};".format(config_file['username'])).execution_options(autocommit=True))
+       engine.execute(text("CREATE SCHEMA IF NOT EXISTS log AUTHORIZATION {0};".format(config_file['username'])).execution_options(autocommit=True))
        print("Schemas executed")
     except:
         print("Error at creating schemas")
 
 def create_tables(engine):
     """
-    :param engine: SQLalchemy engine
+    :param engine: SQAlchemy engine
     :return: Create staging table, aggregated table and log table schemas
     """
     try:
-        trips_query = " IF NOT EXISTS ( SELECT  * FROM sys.tables WHERE name = N'{1}' ) \
-             CREATE TABLE {0}.stg.{1} (  \
-                region VARCHAR(255), \
-                origin_coord VARCHAR(255), \
-                destination_coord VARCHAR(255), \
-                datetime VARCHAR(255), \
-                datasource VARCHAR(255) \
-                    );".format(config_file['dbname'], config_file['staging_table'])
+        trips_query = "CREATE TABLE IF NOT EXISTS stg.{0} (  \
+                region character varying, \
+                origin_coord character varying, \
+                destination_coord character varying, \
+                datetime character varying, \
+                datasource character varying); \
+                ALTER TABLE IF EXISTS stg.{0} OWNER to {1};".format(config_file['staging_table'],
+                                                                    config_file['username'])
         engine.execute(text(trips_query).execution_options(autocommit=True))
-        vw_trips_query = " IF NOT EXISTS ( SELECT  * FROM sys.tables WHERE name = N'{1}' ) \
-             CREATE TABLE {0}.agg.{1} ( \
-                trip_id int IDENTITY(1,1) PRIMARY KEY, \
-                region VARCHAR(255) NOT NULL, \
-                datetime datetime NOT NULL, \
+        vw_trips_query = "CREATE TABLE IF NOT EXISTS agg.{0} ( \
+                trip_id int GENERATED ALWAYS AS IDENTITY, \
+                region character varying NOT NULL, \
+                datetime timestamp without time zone NOT NULL, \
                 year_datetime bigint NOT NULL, \
                 week_datetime int NOT NULL, \
-                datasource VARCHAR(255) NOT NULL, \
-                nbr_trips int NOT NULL \
-                       );".format(config_file['dbname'], config_file['aggregated_table'])
+                datasource character varying NOT NULL, \
+                nbr_trips int NOT NULL, \
+                PRIMARY KEY (trip_id) );\
+                ALTER TABLE IF EXISTS agg.{0} OWNER to {1};".format(config_file['aggregated_table'],
+                                                                    config_file['username'])
         engine.execute(text(vw_trips_query).execution_options(autocommit=True))
-        log_query = " IF NOT EXISTS ( SELECT  * FROM sys.tables WHERE name = N'{1}' ) \
-                CREATE TABLE {0}.log.{1} ( \
-                    id int IDENTITY(1,1) PRIMARY KEY, \
-                    table_schema VARCHAR(3) NOT NULL, \
-                    table_name VARCHAR(50) NOT NULL, \
-                    datetime datetime NOT NULL, \
-                    records bigint NOT NULL \
-                       );".format(config_file['dbname'], config_file['logging_table'])
+        log_query = "CREATE TABLE IF NOT EXISTS log.{0} ( \
+                    id int GENERATED ALWAYS AS IDENTITY, \
+                    table_schema character varying NOT NULL, \
+                    table_name character varying NOT NULL, \
+                    filename character varying NOT NULL, \
+                    datetime timestamp without time zone NOT NULL, \
+                    records bigint NOT NULL, \
+                    message character varying NOT NULL, \
+                    PRIMARY KEY (id) );  \
+                    ALTER TABLE IF EXISTS log.{0} OWNER to {1};".format(config_file['logging_table'],
+                                                                        config_file['username'])
         engine.execute(text(log_query).execution_options(autocommit=True))
         print("Table creation executed")
     except:
