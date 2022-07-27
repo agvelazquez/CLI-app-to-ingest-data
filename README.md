@@ -1,5 +1,5 @@
-# jobsity-challenge
-### Data Engineering Challenge
+# Command Line interface to ingest data
+### DB connector
 
 
 jobsity-challenge app is a command line tool build in Python that take the CSV file with trips taken by different vehicles and calculate the weekly average by Region.
