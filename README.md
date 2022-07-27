@@ -9,13 +9,13 @@ Output:
 - The app will create a chart with the data.
 
 Requirements:
-- A SQL sever Management Studio database (can be local).
+- A SQL database.
 - Database connection uses Windows Authentication.
 - Python 3 installed in your machine.
 - Check requirements.txt for Python packages.
         
 In order to run the app you will need to follow next steps:
-1. Install SQL Server Management Studio (The app can handle other connections using the config.json)
+1. Install PostgreSQL in your local system.
 2. Install Python 3 and packages in requirements.txt
 3. Download Git repository keeping the same structure
 4. Complete the config.json file with your setup 
@@ -38,7 +38,6 @@ The app will output a barchart showing the weekly average by Region
 
 
 ### Areas of improvement 
-- Use an open source SQL database such as SQLite where we can share the DB as a file
 - Use partitions and indexes in SQL tables
 - Include a table with values in the output plot
 - Improve notations and exceptions 
